@@ -144,6 +144,8 @@ class Connection(object):
             if auth is None:
                 auth = 'NONE'
             socket = thrift.transport.TSocket.TSocket(host, port)
+            socket.setTimeout(3600*1000) # 1 hr
+            
             if auth == 'NOSASL':
                 # NOSASL corresponds to hive.server2.authentication=NOSASL in hive-site.xml
                 self._transport = thrift.transport.TTransport.TBufferedTransport(socket)
